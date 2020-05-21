@@ -571,6 +571,16 @@ public:
             Base::template segment<Detail::get_field_size<Fields...>(Key)>(offset));
     }
 
+    template <int Key>
+    bool has_field() const {
+        static_assert(Detail::get_field_size<Fields...>(Key) != std::numeric_limits<std::size_t>::max(),
+            "Specified key not present in measurement vector");
+
+        std::size_t offset = std::get<Detail::get_field_order<0, Fields...>(Key)>(field_offsets);
+
+        return offset != std::numeric_limits<std::size_t>::max();
+    }
+
     template <int Key, typename T>
     void set_field(T in) {
         static_assert(Detail::get_field_size<Fields...>(Key) != std::numeric_limits<std::size_t>::max(),

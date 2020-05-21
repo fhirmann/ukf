@@ -60,6 +60,15 @@ class IntegratorEuler {
     }
 };
 
+/* HACK: No real integrator but just using the "derivative" directly as the new state */
+class IntegratorDirect {
+    public:
+    template <typename S, typename... U>
+    static S integrate(real_t, const S& state, const U&... input) {
+        return state.derivative(input...);
+    }
+};
+
 }
 
 #endif
