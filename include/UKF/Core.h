@@ -157,6 +157,13 @@ public:
     desired.
     */
     void a_posteriori_step() {
+
+        // for an empyt measurement vector nothing must be done
+        if (innovation.size() <= 0)
+        {
+            return;
+        }
+
         /*
         Calculate the cross-correlation matrix described in equations 70 and
         71 from from the Kraft paper.
